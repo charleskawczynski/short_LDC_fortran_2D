@@ -37,16 +37,16 @@
       integer :: i,j,N,N_output,N_PPE,iter_PPE,iter,N_iter
 
       Re = 1000.0_cp                                ! Reynolds number
-      dt = 1.0_cp*10.0_cp**(-3.0_cp)               ! time step
+      dt = 2.0_cp*10.0_cp**(-3.0_cp)               ! time step
       N_iter = 10**5                               ! number of time steps
       N_PPE = 5                                    ! number of PPE iterations
 
       delta_BL = 1.0_cp/sqrt(Re)                   ! approximate boundary layer thickness
-      N = maxval((/floor(2.0_cp/delta_BL),40/))    ! number of cells in each direction, N ~ Re**(3/4) for DNS
+      N = maxval((/floor(4.0_cp/delta_BL),40/))    ! number of cells in each direction, N ~ Re**(3/4) for DNS
       h = 1.0_cp/real(N,cp)                        ! spatial step size (hard coded and uniform)
       N_output = 100                               ! output transient data every N_output time steps
-      tol = 1.0_cp*10.0_cp**(-4.0_cp)              ! stops simulation when |KE-KE_old|/dt < tol
-      if (N.gt.150) then; write(*,*) 'are you sure you want this large of a mesh? N=',N; stop 'done'; endif
+      tol = 1.0_cp*10.0_cp**(-5.0_cp)              ! stops simulation when |KE-KE_old|/dt < tol
+      if (N.gt.300) then; write(*,*) 'are you sure you want this large of a mesh? N=',N; stop 'done'; endif
 
       ! Initialize data
       KE_old=0.0_cp; KE=0.0_cp;fact=1.0_cp/4.0_cp;h_inv=1.0_cp/h;h2=h**2.0_cp;dt_h2Re_inv=dt/(h2*Re);dt_h_inv=dt/h
